@@ -8,7 +8,6 @@
                     <div class="page-header">
                         <h1>
                             {{$profileUser->name}}
-                            <small>Since {{$profileUser->created_at->diffForHumans()}}</small>
                         </h1>
                     </div>
                 </div>
@@ -18,9 +17,6 @@
                         @include("profiles.activities.{$record->type}",['activity'=>$record])
                     @endforeach
                 @endforeach
-                <div class="pagination text-center center-block">
-                    {{--{{$threads->links()}}--}}
-                </div>
             </div>
         </div>
     </div>
