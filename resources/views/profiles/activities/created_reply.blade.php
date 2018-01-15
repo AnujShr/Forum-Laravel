@@ -2,7 +2,7 @@
     <div class="panel-heading">
         <div class="level">
             <span class="flex">
-                {{$profileUser->name}} replied to a <a href="{{$activity->subject->thread->path()}}">}}">{{$activity->subject->thread->title}}</a>
+                {{$profileUser->name}} replied to a <a href="{{$activity->subject->thread->path()}}">{{$activity->subject->thread->title}}</a>
 
                 {{--{{$thread->title}}</a>--}}
 
