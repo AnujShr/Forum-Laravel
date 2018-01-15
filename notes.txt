@@ -1,0 +1,20 @@
+#Forums
+1.Thread
+2.Reply
+3.User
+
+A.Thread Created by user
+B.A reply belongs to a thread, and belongs to users.
+
+
+Created a Factory
+
+$factory->define(App\Thread::class, function (Faker $fake){
+return[
+    'user_id'=>function(){
+     return factory('App\User')->create()->id;
+    }
+    'title'=>$faker->sentence,
+    'body'=>$faker->paragraph
+    ];
+});
