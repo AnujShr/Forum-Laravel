@@ -51,6 +51,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 * Hat tip to all memeber of Laracast team 
-* Inspiration-Money
-* etc
 
