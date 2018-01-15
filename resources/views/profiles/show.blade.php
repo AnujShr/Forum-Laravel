@@ -12,20 +12,22 @@
                         </h1>
                     </div>
                 </div>
-                @foreach($activites as $activity)
+                @foreach($activities as $activity)
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="level">
-                        <span class="flex">
-                            <a href="{{$thread->path()}}">
-                                {{$thread->title}}</a></span>
-                                <span>{{$thread->created_at->diffForHumans()}}</span>
+                            <div class="level"><span class="flex">
+                                {{--<a href="{{$thread->path()}}">--}}
+                                    {{--{{$thread->title}}</a>--}}
+                                </span>
+                                <span>
+                                    {{--{{$thread->created_at->diffForHumans()}}--}}
+                                </span>
                             </div>
                         </div>
                         <div class="panel-body">
                             <article>
                                 <h4>
-                                    {{$thread->body}}
+                                    {{--{{$thread->body}}--}}
                                 </h4>
                             </article>
                             <hr>
@@ -33,7 +35,8 @@
                     </div>
                 @endforeach
                 <div class="pagination text-center center-block">
-                    {{$threads->links()}}</div>
+                    {{--{{$threads->links()}}--}}
+                </div>
             </div>
         </div>
     </div>
