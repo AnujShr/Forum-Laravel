@@ -16,13 +16,4 @@ class ProfileController extends Controller
             'activities' => Activity::feed($user)
         ]);
     }
-
-    /**
-     * @param User $user
-     * @return mixed
-     */
-    protected function getActivity(User $user)
-    {
-
-    }
 }

@@ -29,7 +29,8 @@ class ReplyController extends Controller
             'user_id' => auth()->id()
         ]);
 
-        return back();
+        return back()
+            ->with('flash','Your Reply has been left');
     }
 
     public function destroy(Reply $reply)
