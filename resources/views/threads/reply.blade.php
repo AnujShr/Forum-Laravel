@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div id="reply-{{$reply->id}}" class="panel panel-default">
     <div class="panel-heading">
         <div class="level">
             <h5 class="flex">
@@ -22,7 +22,7 @@
     @can('update',$reply)
         <div class="panel-footer">
             {!!Form::open(['url'=>'/replies/'.$reply->id,'method'=>'post'])!!}
-            {{method_field('delete')}}
+            {{method_field('DELETE')}}
             {{Form::submit('Delete Reply',['class'=>'btn btn-danger btn-xs'])}}
             {{Form::close()}}
         </div>

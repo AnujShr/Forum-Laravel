@@ -8,5 +8,11 @@ class Favourite extends Model
 {
     use RecordActivity;
 
-    protected $guarded=[];
+    protected $guarded = [];
+
+    public function favourited()
+    {
+        return $this->morphTo();
+    }
+
 }
