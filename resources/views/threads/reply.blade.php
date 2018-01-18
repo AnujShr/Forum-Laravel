@@ -1,4 +1,4 @@
-<reply inline-template>
+<reply :attributes="{{ $reply }}" inline-template>
     <div id="reply-{{$reply->id}}" class="panel panel-default">
         <div class="panel-heading">
             <div class="level">
@@ -15,7 +15,7 @@
         </div>
         <div class="panel-body">
             <div v-if="editing">
-                <textarea class="form-control"></textarea>
+                <textarea class="form-control" v-model="body"></textarea>
             </div>
             <div v-else>
                 <h5>

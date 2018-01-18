@@ -11914,7 +11914,7 @@ window.Vue = __webpack_require__(9);
  */
 
 Vue.component('flash', __webpack_require__(39));
-Vue.component('flash', __webpack_require__(47));
+Vue.component('reply', __webpack_require__(47));
 
 var app = new Vue({
   el: '#app'
@@ -43451,10 +43451,22 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['attributes'],
     data: function data() {
         return {
-            editing: false
+            editing: false,
+            body: this.attributes.body
         };
+    },
+
+    methods: {
+        update: function update() {
+            axios.patch('/replies/' + this.attributes.id, {
+                body: this.body
+            });
+            this.editing = false;
+            flash('Updated!');
+        }
     }
 });
 
