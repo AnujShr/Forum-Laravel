@@ -15,7 +15,12 @@
         </div>
         <div class="panel-body">
             <div v-if="editing">
-                <textarea class="form-control" v-model="body"></textarea>
+                <div class="form-group">
+                    <textarea class="form-control" v-model="body"></textarea>
+                </div>
+                <button class="btn btn-xs btn-primary">Update</button>
+                <button class="btn btn-outline-warning">Close</button>
+                <button type="button" class="btn btn-primary-outline">Primary</button>
             </div>
             <div v-else>
                 <h5>
