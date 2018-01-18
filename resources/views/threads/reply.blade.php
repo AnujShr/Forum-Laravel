@@ -7,9 +7,11 @@
                         {{$reply->owner->name}}
                     </a> said {{$reply->created_at->diffForHumans()}}. . . . .
                 </h5>
-                {!! Form::open(['url'=> '/replies/'.$reply->id.'/favourite', 'method'=>"post"]) !!}
-                {{Form::submit($reply->favourites_count.' '.str_plural('Favourite',$reply->favourites_count),(['class'=>"btn btn-default" ,($reply->isFavourited())?'disabled':'']))}}
-                {{Form::close()}}
+
+                <div>
+                    <favourite :reply="{{ $reply }} "  user="{{ auth()->check()}}"></favourite>
+
+                </div>
 
             </div>
         </div>

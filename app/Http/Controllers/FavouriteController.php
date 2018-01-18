@@ -17,4 +17,9 @@ class FavouriteController extends Controller
         else
             return redirect('login');
     }
+
+    public function destroy(Reply $reply)
+    {
+        $reply->unfavourite();
+    }
 }
