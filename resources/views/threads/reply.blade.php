@@ -27,10 +27,8 @@
         @can('update',$reply)
             <div class="panel-footer level">
                 <button class="btn btn-xs mr-1" @click="editing = true">Edit</button>
-                {!!Form::open(['url'=>'/replies/'.$reply->id,'method'=>'post'])!!}
-                {{method_field('DELETE')}}
-                {{Form::submit('Delete Reply',['class'=>'btn btn-danger btn-xs'])}}
-                {{Form::close()}}
+                <button class="btn btn-xs btn btn-danger mr-1" @click="destroy">Delete</button>
+
             </div>
 
         @endcan
