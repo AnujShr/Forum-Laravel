@@ -15,9 +15,7 @@
                             @can('update',$thread)
                             {!! Form::open(['url'=> $thread->path(), 'method'=>"post"]) !!}
                             {{method_field('delete')}}
-
                             {{Form::submit('Delete Thread',['class'=>'btn btn-danger btn-xs'])}}
-
                             {{Form::close()}}
                             @endcan
                         </div>
