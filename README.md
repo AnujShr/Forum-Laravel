@@ -12,6 +12,7 @@ Few Basic Requirements
 ```
 *PHP v.7 or higher
 *Mysql v5.7 or higher
+*Vue 2.0 or higher
 ```
 
 ### Installing
@@ -21,21 +22,24 @@ Few Basic Requirements
 -git clone https://github.com/bestmomo/laravel5-example.git project-name
 -CD project-name
 -composer install
+-npm install
 -Create a database and inform .env
 -php artisan migrate create tables
 
+
 ```
 By now you will get a database and a running project.
-## Running the tests
 
-Explain how to run the automated tests for this system
 
 ## Deployment
 
 Use a localhost and create a vhost to deploy since it is just created as a learning project by a learner,
+
 ## Built With
 
-* [Composer](https://getcomposer.org/doc/) - Dependency Management
+* [Laravel](https://laravel.com/) - The PHP Framework For Web Artisans
+* [Composer](https://github.com/composer/composer) - Dependency Manager for PHP
+* [Bootstrap](https://github.com/twbs/bootstrap) - Sleek, intuitive,powerful front-end framework for faster and easier web development.
 
 ## Versioning
 Have Not used one(Well need to learn about it first and if learned might use in this project in future) 
