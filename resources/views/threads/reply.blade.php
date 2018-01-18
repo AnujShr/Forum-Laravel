@@ -18,9 +18,8 @@
                 <div class="form-group">
                     <textarea class="form-control" v-model="body"></textarea>
                 </div>
-                <button class="btn btn-xs btn-primary">Update</button>
-                <button class="btn btn-outline-warning">Close</button>
-                <button type="button" class="btn btn-primary-outline">Primary</button>
+                <button class="btn btn-sm btn-primary outline" @click="update">Update</button>
+                <button class="btn btn-sm btn-delete outline" @click="editing = false">Close</button>
             </div>
             <div v-else>
                 <h5>
