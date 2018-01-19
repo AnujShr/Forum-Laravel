@@ -1,5 +1,5 @@
 <template>
-    <button type="submit" :class="classes" @click="toggle" :disabled="!this.user">
+    <button type="submit" :class="classes" @click="toggle">
         <span class="glyphicon glyphicon-heart"></span>
         <span v-text="count"></span>
     </button>
