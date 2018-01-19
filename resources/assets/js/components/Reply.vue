@@ -25,17 +25,18 @@
             <div v-else v-text="body"></div>
             <hr>
         </div>
-        <!--@can('update',$reply)-->
+
         <div class="panel-footer level" v-if="canUpdate">
             <button class="btn btn-xs mr-1" @click="editing = true">Edit</button>
             <button class="btn btn-xs btn btn-danger mr-1" @click="destroy">Delete</button>
         </div>
-        <!--@endcan-->
+
     </div>
 
 </template>
 <script>
     import Favourite from './Favourite.vue';
+
     export default {
         props: ['data'],
         components: {Favourite},
