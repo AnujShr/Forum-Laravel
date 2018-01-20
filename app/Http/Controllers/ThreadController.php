@@ -11,7 +11,7 @@ class ThreadController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index','show']);
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
     /**
@@ -21,7 +21,7 @@ class ThreadController extends Controller
      * @return \Illuminate\Http\Response
      * @internal param null $channelID
      */
-    public function index(Channel $channel,ThreadFilters $filters)
+    public function index(Channel $channel, ThreadFilters $filters)
     {
         $threads = $this->getThreads($channel, $filters);
         return view('threads.index', compact('threads'));
@@ -46,21 +46,20 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'title' =>'required',
+        $this->validate($request, [
+            'title' => 'required',
             'body' => 'required',
-            'channel_id'=>'required|exists:channels,id'
+            'channel_id' => 'required|exists:channels,id'
         ]);
 
         $thread = Thread::create([
             'user_id' => auth()->id(),
-            'channel_id'=>request('channel_id'),
+            'channel_id' => request('channel_id'),
             'title' => request('title'),
             'body' => request('body')
         ]);
         return redirect($thread->path())
-            ->with('flash','Your thread has been published' )
-            ;
+            ->with('flash', 'Your thread has been published');
     }
 
     /**
@@ -70,12 +69,9 @@ class ThreadController extends Controller
      * @param  \App\Thread $thread
      * @return \Illuminate\Http\Response
      */
-    public function show($channel,Thread $thread)
+    public function show($channel, Thread $thread)
     {
-        return view('threads.show', [
-            'thread'=> $thread,
-            'replies'=> $thread->replies()->paginate(4),
-        ]);
+        return view('threads.show', compact('thread'));
     }
 
     /**
@@ -107,11 +103,11 @@ class ThreadController extends Controller
      * @param  \App\Thread $thread
      * @return \Illuminate\Http\Response
      */
-    public function destroy($channel,Thread $thread)
+    public function destroy($channel, Thread $thread)
     {
-       $this->authorize('update', $thread);
-            $thread->delete();
-            return redirect('/threads');
+        $this->authorize('update', $thread);
+        $thread->delete();
+        return redirect('/threads');
     }
 
     /**

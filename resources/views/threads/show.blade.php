@@ -31,11 +31,11 @@
                         </div>
                     </div>
 
-                    <replies :data="{{ $thread->replies }}" @added= "repliesCount++"
+                    <replies @added= "repliesCount++"
                     @removed="repliesCount--"></replies>
 
                 </div>
-                {{--{{$replies->links()}}--}}
+
 
                 <div class="col-md-4">
                     <div class="panel panel-default">
