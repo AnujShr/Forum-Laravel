@@ -88,14 +88,13 @@ class Thread extends Model
 
     }
 
+
     /**
-     *
+     * @param null $userId
      */
-    public function subscribe($userId =null)
+    public function subscribe($userId = null)
     {
-        $this->subscriptions()->create([
-            'user_id' => $userId ?: auth()->id()
-        ]);
+        $this->subscriptions()->create(['user_id' => $userId ?: auth()->id()]);
 
     }
 
@@ -104,6 +103,14 @@ class Thread extends Model
      */
     public function subscriptions()
     {
-        return $this->hasMany(ThredSubscriptions::class, 'user_id');
+         return $this->hasMany(ThreadSubscriptions::class);
+    }
+
+    /**
+     * @param null $userId
+     */
+    public function unsubscribe($userId = null)
+    {
+        $this->subscriptions()->where('user_id', $userId ?: auth()->id())->delete();
     }
 }
