@@ -7,6 +7,10 @@ use App\Thread;
 use App\Filter\ThreadFilters;
 use Illuminate\Http\Request;
 
+/**
+ * Class ThreadController
+ * @package App\Http\Controllers
+ */
 class ThreadController extends Controller
 {
     public function __construct()

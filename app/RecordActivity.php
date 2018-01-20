@@ -4,8 +4,15 @@
 namespace App;
 
 
+/**
+ * Trait RecordActivity
+ * @package App
+ */
 trait RecordActivity
 {
+    /**
+     *
+     */
     protected static function bootRecordActivity()
     {
         if (auth()->guest()) return;
@@ -19,6 +26,9 @@ trait RecordActivity
         });
     }
 
+    /**
+     * @param $event
+     */
     protected function recordActivity($event)
     {
         $this->activity()->create([
@@ -29,6 +39,9 @@ trait RecordActivity
     }
 
 
+    /**
+     * @return mixed
+     */
     public function activity()
     {
         return $this->morphMany('App\Activity', 'subject');
@@ -44,12 +57,18 @@ trait RecordActivity
         return "{$event}_{$type}";
     }
 
+    /**
+     * @return array
+     */
     protected static function getActivitiesToRecord()
     {
 
         return ['created'];
     }
 
+    /**
+     * @return array
+     */
     protected static function getRecordEvents()
     {
         return ['created'];

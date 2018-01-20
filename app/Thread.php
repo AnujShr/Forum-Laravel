@@ -5,12 +5,22 @@ namespace App;
 use App\Channel;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Thread
+ * @package App
+ */
 class Thread extends Model
 {
     use RecordActivity;
+    /**
+     * @var array
+     */
     protected $guarded = [];
     protected $with = ['owner', 'channel'];
 
+    /**
+     *
+     */
     protected static function boot()
     {
         parent::boot();
@@ -21,11 +31,17 @@ class Thread extends Model
     }
 
 
+    /**
+     * @return string
+     */
     public function path()
     {
         return "/threads/{$this->channel->slug}/{$this->id}";
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function replies()
     {
         return $this->hasMany(Reply::class);
@@ -33,6 +49,9 @@ class Thread extends Model
 
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function owner()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -47,11 +66,19 @@ class Thread extends Model
         return $this->replies()->create($reply);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function channel()
     {
         return $this->belongsTo(Channel::class, 'channel_id');
     }
 
+    /**
+     * @param $query
+     * @param $filters
+     * @return mixed
+     */
     public function scopeFilter($query, $filters)
     {
         return $filters->apply($query);
