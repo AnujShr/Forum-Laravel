@@ -59742,6 +59742,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -59750,21 +59753,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     components: { Reply: __WEBPACK_IMPORTED_MODULE_0__Reply_vue___default.a, NewReply: __WEBPACK_IMPORTED_MODULE_1__NewReply_vue___default.a },
     mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins_collection_js__["a" /* default */]],
     data: function data() {
-        return {
-            dataSet: false,
-            endpoint: location.pathname + '/replies'
-        };
+        return { dataSet: false };
     },
     created: function created() {
         this.fetch();
     },
 
     methods: {
-        fetch: function fetch() {
-            axios.get(this.url()).then(this.refresh);
+        fetch: function fetch(page) {
+            axios.get(this.url(page)).then(this.refresh);
         },
-        url: function url() {
-            return location.pathname + '/replies';
+        url: function url(page) {
+            if (!page) {
+                var query = location.search.match(/page=(\d+)/);
+                page = query ? query[1] : 1;
+            }
+            return location.pathname + '/replies?page=' + page;
         },
         refresh: function refresh(_ref) {
             var data = _ref.data;
@@ -60504,7 +60508,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['endpoint'],
     data: function data() {
         return {
             body: ''
@@ -60520,7 +60523,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         addReply: function addReply() {
             var _this = this;
 
-            axios.post(this.endpoint, { body: this.body }).then(function (_ref) {
+            axios.post(location.pathname + '/replies', { body: this.body }).then(function (_ref) {
                 var data = _ref.data;
 
                 _this.body = '';
@@ -60628,12 +60631,12 @@ var render = function() {
         )
       }),
       _vm._v(" "),
-      _c("paginator"),
+      _c("paginator", {
+        attrs: { dataSet: _vm.dataSet },
+        on: { changed: _vm.fetch }
+      }),
       _vm._v(" "),
-      _c("new-reply", {
-        attrs: { endpoint: _vm.endpoint },
-        on: { created: _vm.add }
-      })
+      _c("new-reply", { on: { created: _vm.add } })
     ],
     2
   )
@@ -60736,8 +60739,10 @@ module.exports = Component.exports
 
 /***/ }),
 /* 194 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
@@ -60753,6 +60758,41 @@ module.exports = Component.exports
 //
 //
 //
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['dataSet'],
+    data: function data() {
+        return {
+            page: 1,
+            prevUrl: false,
+            nextUrl: false
+        };
+    },
+
+    watch: {
+        dataSet: function dataSet() {
+            this.page = this.dataSet.current_page;
+            this.prevUrl = this.dataSet.prev_page_url;
+            this.nextUrl = this.dataSet.next_page_url;
+        },
+        page: function page() {
+            this.broadcast().updateUrl();
+        }
+    },
+    computed: {
+        showPaginate: function showPaginate() {
+            return !!this.prevUrl || !!this.nextUrl;
+        }
+    },
+    methods: {
+        broadcast: function broadcast() {
+            return this.$emit('changed', this.page);
+        },
+        updateUrl: function updateUrl() {
+            history.pushState(null, null, '?page=' + this.page);
+        }
+    }
+});
 
 /***/ }),
 /* 195 */
@@ -60762,28 +60802,77 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "pagination" }, [
-      _c("li", [
-        _c("a", { attrs: { href: "#", "aria-label": "Previous", rel: "" } }, [
-          _c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("«")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _c("a", { attrs: { href: "#", "aria-label": "Next" } }, [
-          _c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("»")])
-        ])
+  return _vm.showPaginate
+    ? _c("ul", { staticClass: "pagination" }, [
+        _c(
+          "li",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.prevUrl,
+                expression: "prevUrl"
+              }
+            ]
+          },
+          [
+            _c(
+              "a",
+              {
+                attrs: { href: "#", "aria-label": "Previous", rel: "prev" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.page--
+                  }
+                }
+              },
+              [
+                _c("span", { attrs: { "aria-hidden": "true" } }, [
+                  _vm._v("« Previous")
+                ])
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "li",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.nextUrl,
+                expression: "nextUrl"
+              }
+            ]
+          },
+          [
+            _c(
+              "a",
+              {
+                attrs: { href: "#", "aria-label": "Next", rel: "next" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.page++
+                  }
+                }
+              },
+              [
+                _c("span", { attrs: { "aria-hidden": "true" } }, [
+                  _vm._v("Next »")
+                ])
+              ]
+            )
+          ]
+        )
       ])
-    ])
-  }
-]
+    : _vm._e()
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
