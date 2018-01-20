@@ -16,6 +16,9 @@ class Thread extends Model
      * @var array
      */
     protected $guarded = [];
+    /**
+     * @var array
+     */
     protected $with = ['owner', 'channel'];
 
     /**
@@ -83,5 +86,24 @@ class Thread extends Model
     {
         return $filters->apply($query);
 
+    }
+
+    /**
+     *
+     */
+    public function subscribe($userId =null)
+    {
+        $this->subscriptions()->create([
+            'user_id' => $userId ?: auth()->id()
+        ]);
+
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany(ThredSubscriptions::class, 'user_id');
     }
 }
