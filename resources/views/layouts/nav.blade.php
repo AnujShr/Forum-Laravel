@@ -29,6 +29,7 @@
                             <li><a href="/threads?by={{auth()->user()->name}}">My Threads</a></li>
                         @endif
                         <li><a href="/threads?popular=1">Popular All Time</a></li>
+                        <li><a href="/threads?unanswered=1">Unanswered Thread</a></li>
 
                     </ul>
                 </li>

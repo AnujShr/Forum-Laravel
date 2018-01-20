@@ -15,19 +15,9 @@ class Thread extends Model
     {
         parent::boot();
 
-        static::addGlobalScope('replyCount', function ($builder) {
-            $builder->withCount('replies');
-        });
-
         static::deleting(function ($thread) {
             $thread->replies->each->delete();
         });
-
-
-
-//        static::addGlobalScope('owner', function ($builder) {
-//            $builder->with('owner');
-//        });
     }
 
 
@@ -48,6 +38,10 @@ class Thread extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * @param $reply
+     * @return Model
+     */
     public function addReply($reply)
     {
         return $this->replies()->create($reply);
