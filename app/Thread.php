@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Channel;
+use App\ThreadSubscriptions;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -20,6 +21,7 @@ class Thread extends Model
      * @var array
      */
     protected $with = ['owner', 'channel'];
+    protected $appends = ['isSubscribedTo'];
 
     /**
      *
@@ -94,7 +96,9 @@ class Thread extends Model
      */
     public function subscribe($userId = null)
     {
-        $this->subscriptions()->create(['user_id' => $userId ?: auth()->id()]);
+        $this->subscriptions()->create([
+            'user_id' => $userId ?: auth()->id()
+        ]);
 
     }
 
@@ -106,11 +110,20 @@ class Thread extends Model
          return $this->hasMany(ThreadSubscriptions::class);
     }
 
+    public function getIsSubscribedToAttribute()
+    {
+     return $this->subscriptions()
+         ->where('user_id',auth()->id())
+         ->exists();
+    }
+
     /**
      * @param null $userId
      */
     public function unsubscribe($userId = null)
     {
-        $this->subscriptions()->where('user_id', $userId ?: auth()->id())->delete();
+        $this->subscriptions()
+            ->where('user_id', $userId ?: auth()->id())
+            ->delete();
     }
 }

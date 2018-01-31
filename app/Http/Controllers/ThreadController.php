@@ -50,20 +50,10 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'body' => 'required',
-            'channel_id' => 'required|exists:channels,id'
-        ]);
+        $this->validate($request, ['title' => 'required', 'body' => 'required', 'channel_id' => 'required|exists:channels,id']);
 
-        $thread = Thread::create([
-            'user_id' => auth()->id(),
-            'channel_id' => request('channel_id'),
-            'title' => request('title'),
-            'body' => request('body')
-        ]);
-        return redirect($thread->path())
-            ->with('flash', 'Your thread has been published');
+        $thread = Thread::create(['user_id' => auth()->id(), 'channel_id' => request('channel_id'), 'title' => request('title'), 'body' => request('body')]);
+        return redirect($thread->path())->with('flash', 'Your thread has been published');
     }
 
     /**
@@ -75,6 +65,7 @@ class ThreadController extends Controller
      */
     public function show($channel, Thread $thread)
     {
+
         return view('threads.show', compact('thread'));
     }
 

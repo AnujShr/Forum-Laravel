@@ -5,10 +5,10 @@
         props:['initialRepliesCount'],
         components:{Replies,SubscribeButton},
         data(){
-            return{
-
+            return {
                 repliesCount:this.initialRepliesCount
             }
+
         },
 
     }
