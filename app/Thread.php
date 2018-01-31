@@ -68,7 +68,13 @@ class Thread extends Model
      */
     public function addReply($reply)
     {
-        return $this->replies()->create($reply);
+        $reply = $this->replies()->create($reply);
+
+        $this->subscriptions->filter(function ($sub) use ($reply) {
+                return $sub->user_id != $reply->user_id;
+            })->each->notify($reply);
+
+        return $reply;
     }
 
     /**
@@ -96,9 +102,7 @@ class Thread extends Model
      */
     public function subscribe($userId = null)
     {
-        $this->subscriptions()->create([
-            'user_id' => $userId ?: auth()->id()
-        ]);
+        $this->subscriptions()->create(['user_id' => $userId ?: auth()->id()]);
 
     }
 
@@ -107,14 +111,12 @@ class Thread extends Model
      */
     public function subscriptions()
     {
-         return $this->hasMany(ThreadSubscriptions::class);
+        return $this->hasMany(ThreadSubscriptions::class);
     }
 
     public function getIsSubscribedToAttribute()
     {
-     return $this->subscriptions()
-         ->where('user_id',auth()->id())
-         ->exists();
+        return $this->subscriptions()->where('user_id', auth()->id())->exists();
     }
 
     /**
@@ -122,8 +124,6 @@ class Thread extends Model
      */
     public function unsubscribe($userId = null)
     {
-        $this->subscriptions()
-            ->where('user_id', $userId ?: auth()->id())
-            ->delete();
+        $this->subscriptions()->where('user_id', $userId ?: auth()->id())->delete();
     }
 }
