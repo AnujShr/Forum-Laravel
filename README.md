@@ -1,6 +1,6 @@
 # Forum 
 
-A Simple Forum Website developed using Laravel 5.5
+A Simple Forum Website developed using Laravel 5.5(Going to redo the proect with test files. If got time will update this one with the trest driven too. This is highly incomplete has till user profile and subscription. Got another repo with a new tdd project on it.
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project.
@@ -19,7 +19,7 @@ Few Basic Requirements
    
    
 ```
--git clone https://github.com/bestmomo/laravel5-example.git project-name
+-git clone https://github.com/AnujShr/Forum-Laravel.git
 -CD project-name
 -composer install
 -npm install
